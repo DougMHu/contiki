@@ -258,6 +258,9 @@ recv_uc(struct unicast_conn *c, const rimeaddr_t *from)
     //unicast_send(c, from);
   //}
 }
+
+int select = 1;
+
 static const struct unicast_callbacks unicast_callbacks = {recv_uc};
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(broadcast_process, ev, data)
@@ -272,10 +275,21 @@ PROCESS_THREAD(broadcast_process, ev, data)
 
   broadcast_open(&broadcast, 129, &broadcast_call);
 
+  
+
   while(1) {
 
     /* Send a broadcast every 16 - 32 seconds */
-    etimer_set(&et, CLOCK_SECOND * 16 + random_rand() % (CLOCK_SECOND * 1));
+    if (select > 0) {
+      printf("0.1\n");
+      select = -1;
+    }
+    else {
+      printf("0.8\n");
+      select = 1;
+    }
+     // set it back to 16 seconds!!!
+    etimer_set(&et, CLOCK_SECOND * 2 + random_rand() % (CLOCK_SECOND * 1));
 
     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
 
