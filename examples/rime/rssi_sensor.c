@@ -202,7 +202,22 @@ broadcast_recv(struct broadcast_conn *c, const rimeaddr_t *from)
     rssi_signed = rssi_unsigned - 65536;
   else
     rssi_signed = rssi_unsigned;
-  printf("RSSI, %d\n",rssi_signed);
+
+  /* Dynamic range for RSSI: -40 to +10 */
+  if (rssi_signed > 10) {
+    printf("1.0\n");
+  } else if ((rssi_signed <= 10) && (rssi_signed > 0)) {
+    printf("0.8\n");
+  } else if ((rssi_signed <= 0) && (rssi_signed > -10)) {
+    printf("0.6\n");
+  } else if ((rssi_signed <= -10) && (rssi_signed > -20)) {
+    printf("0.4\n");
+  } else if ((rssi_signed <= -20) && (rssi_signed > -30)) {
+    printf("0.2\n");
+  } else {
+    printf("0.0\n");
+  }
+  //printf("RSSI, %d\n",rssi_signed);
   /*
   printf("broadcast message received from %d.%d with seqno %d, RSSI %d, LQI %u, avg seqno gap %d.%02d\n",
          from->u8[0], from->u8[1],
@@ -245,7 +260,7 @@ recv_uc(struct unicast_conn *c, const rimeaddr_t *from)
   */
 
     prrCounter++;
-    printf("prrCounter, %d\npacket#, %d\n",prrCounter,msg->count);
+    //printf("prrCounter, %d\npacket#, %d\n",prrCounter,msg->count);
     //msg->type = UNICAST_TYPE_PONG;
     //packetbuf_copyfrom(msg, sizeof(struct unicast_message));
 
@@ -290,8 +305,8 @@ PROCESS_THREAD(broadcast_process, ev, data)
       select = 1;
     }
     */
-     // set it back to 16 seconds!!!
-    etimer_set(&et, CLOCK_SECOND * 16 + random_rand() % (CLOCK_SECOND * 1));
+     
+    etimer_set(&et, CLOCK_SECOND * 2 + random_rand() % (CLOCK_SECOND * 1));
 
     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
 
