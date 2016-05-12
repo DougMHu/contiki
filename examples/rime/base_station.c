@@ -202,7 +202,7 @@ broadcast_recv(struct broadcast_conn *c, const rimeaddr_t *from)
     rssi_signed = rssi_unsigned - 65536;
   else
     rssi_signed = rssi_unsigned;
-  printf("RSSI, %d\n",rssi_signed);
+  printf("Id & RSSI,%d %d %d\n",from->u8[0],from->u8[1],rssi_signed);
   /*
   printf("broadcast message received from %d.%d with seqno %d, RSSI %d, LQI %u, avg seqno gap %d.%02d\n",
          from->u8[0], from->u8[1],
