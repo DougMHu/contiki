@@ -51,6 +51,9 @@
  *         received.
  */
 
+ // MODIFIED TO PRINT RECEIVED RSSI AND MAC ADDRESSES FOR USE OF TRILATERATION
+ // USING roomba-obstacle-mapping project
+
 
 #include "contiki.h"
 #include "lib/list.h"

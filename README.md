@@ -1,5 +1,11 @@
 The Contiki Operating System
 ============================
+README for use in roomba-obstacle-mapping project:
+* Follow ANRG's [contiki tutorials][tutorials] for setting up your Tmote.
+* Upload `contiki/examples/rime/base_station.c` to Tmote that will be plugged into your computer.
+* Upload `contiki/examples/rime/example_broadcast.c` to the other 4+ Tmotes that will be placed in the corners of your room
+
+Original README:
 
 [![Build Status](https://secure.travis-ci.org/contiki-os/contiki.png)](http://travis-ci.org/contiki-os/contiki)
 
@@ -17,3 +23,5 @@ and so on.
 For more information, see the Contiki website:
 
 [http://contiki-os.org](http://contiki-os.org)
+
+[tutorials]: http://anrg.usc.edu/contiki/index.php/Contiki_tutorials
